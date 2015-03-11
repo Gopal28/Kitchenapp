@@ -9,72 +9,52 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class CustomAdapter extends BaseAdapter{
 
-    String [] result;
-    Context context;
-    int [] imageId;
-    private static LayoutInflater inflater=null;
-    public CustomAdapter(MainActivity mainActivity, String[] prgmNameList, int[] prgmImages) {
-        // TODO Auto-generated constructor stub
-        result=prgmNameList;
-        context=mainActivity;
-        imageId=prgmImages;
-        inflater = ( LayoutInflater )context.
-                getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    private MainActivity context;
+    private String[] items;
+    LayoutInflater inflater;
+    public CustomAdapter(MainActivity context, String[] items) {
+        this.context = context;
+        this.items = items;
+        inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
 
+    public View getView(final int position, View convertView, ViewGroup parent) {
+
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.grid_single, null);
+        }
+        Button button = (Button) convertView.findViewById(R.id.grid_item);
+        button.setText(items[position]);
+        button.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                context.itemClicked(position);
+            }
+        });
+
+        return convertView;
     }
 
     @Override
     public int getCount() {
-        // TODO Auto-generated method stub
-        return result.length;
+        return items.length;
     }
 
     @Override
     public Object getItem(int position) {
-        // TODO Auto-generated method stub
-        return position;
+        return items[position];
     }
 
     @Override
     public long getItemId(int position) {
-        // TODO Auto-generated method stub
         return position;
     }
-
-    public class Holder
-    {
-        TextView tv;
-        ImageView img;
-    }
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        // TODO Auto-generated method stub
-        Holder holder=new Holder();
-        View rowView;
-
-        rowView = inflater.inflate(R.layout.grid_single, null);
-        holder.tv=(TextView) rowView.findViewById(R.id.textView1);
-        holder.img=(ImageView) rowView.findViewById(R.id.imageView1);
-
-        holder.tv.setText(result[position]);
-        holder.img.setImageResource(imageId[position]);
-
-        rowView.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                Toast.makeText(context, "You Clicked "+result[position], Toast.LENGTH_LONG).show();
-            }
-        });
-
-        return rowView;
-    }
-
 }
