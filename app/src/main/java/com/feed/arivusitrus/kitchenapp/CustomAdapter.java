@@ -29,8 +29,8 @@ public class CustomAdapter extends BaseAdapter{
     }
     public class Holder
     {
-        TextView tv;Button b;
-     ImageView img;
+        TextView tv;
+        Button img;
     }
 
 
@@ -57,16 +57,16 @@ public View getView(final int position, View convertView, ViewGroup parent) {
         View rowView;
 
         rowView = inflater.inflate(R.layout.grid_single, null);
-      //  holder.tv=(TextView) rowView.findViewById(R.id.textView1);
-       // holder.img=(Button) rowView.findViewById(R.id.grid_item);
+       // holder.tv=(TextView) rowView.findViewById(R.id.textView1);
+        holder.img=(Button) rowView.findViewById(R.id.grid_item);
 
-     //  holder.tv.setText(result[position]);
-   // holder.img.setText(result[position]);
+       // holder.tv.setText(result[position]);
+    holder.img.setText(result[position]);
 // holder.img.setBackgroundColor(Color.RED);
 
-    holder.img=(ImageView) rowView.findViewById(R.id.imageviewMain);
-    holder.b=(Button) rowView.findViewById(R.id.grid_item);
-    //holder.img.setBackgroundColor(Integer.parseInt(result[position]));
+
+
+
 
     rowView.setOnClickListener(new OnClickListener() {
 
@@ -79,6 +79,5 @@ public View getView(final int position, View convertView, ViewGroup parent) {
 
         return rowView;
     }
-
 
 }
