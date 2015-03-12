@@ -26,7 +26,8 @@ public class MainActivity extends Activity  {
     private final String[] items = new String[]{"T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10",
            "T11","T12" };
 
-
+    private final String[] items1 = new String[]{"10 m", "10 m", "10 m", "10 m", "10 m", "10 m", "10 m", "10 m", "10 m", "10 m",
+            "10 m","10 m" };
    // public static int [] prgmImages={R.drawable.ic_launcher,R.drawable.ic_launcher,R.drawable.ic_launcher};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,7 @@ public class MainActivity extends Activity  {
 
         gv=(GridView) findViewById(R.id.gridView1);
 
-        CustomAdapter gridAdapter = new CustomAdapter(MainActivity.this, items);
+        CustomAdapter gridAdapter = new CustomAdapter(MainActivity.this, items,items1);
         gv.setAdapter(gridAdapter);
 
 
