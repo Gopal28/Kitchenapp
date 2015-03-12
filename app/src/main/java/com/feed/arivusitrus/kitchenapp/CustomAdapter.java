@@ -29,11 +29,13 @@ public class CustomAdapter extends BaseAdapter{
     }
     public class Holder
     {
-        TextView tv;
-        Button img;
+        TextView tv;Button b,b1;
+     Button img;
     }
 
+public CustomAdapter(MainActivity context){
 
+}
 
     public int getCount() {
         return items.length;
@@ -57,17 +59,24 @@ public View getView(final int position, View convertView, ViewGroup parent) {
         View rowView;
 
         rowView = inflater.inflate(R.layout.grid_single, null);
-       // holder.tv=(TextView) rowView.findViewById(R.id.textView1);
-        holder.img=(Button) rowView.findViewById(R.id.grid_item);
+      //  holder.tv=(TextView) rowView.findViewById(R.id.textView1);
+       // holder.img=(Button) rowView.findViewById(R.id.grid_item);
 
-       // holder.tv.setText(result[position]);
-    holder.img.setText(result[position]);
+     //  holder.tv.setText(result[position]);
+   //
 // holder.img.setBackgroundColor(Color.RED);
 
+    holder.img=(Button) rowView.findViewById(R.id.imageviewMain);
+    holder.b=(Button) rowView.findViewById(R.id.grid_item);
 
-
-
-
+    holder.img.setText(result[position]);
+    //holder.img.setBackgroundColor(Integer.parseInt(result[position]));
+  holder.b.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+          Toast.makeText(context, "You Clicked Button ya", Toast.LENGTH_LONG).show();
+      }
+  });
     rowView.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -79,5 +88,6 @@ public View getView(final int position, View convertView, ViewGroup parent) {
 
         return rowView;
     }
+
 
 }
