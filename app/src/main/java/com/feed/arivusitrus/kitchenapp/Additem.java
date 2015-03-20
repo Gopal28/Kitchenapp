@@ -1,92 +1,89 @@
 package com.feed.arivusitrus.kitchendelete;
 
-/**
- * Created by Arivu Sitrus on 17-03-2015.
- */
 import java.util.ArrayList;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import com.feed.arivusitrus.kitchendelete.MyListActivity;
-/** Note that here we are inheriting ListActivity class instead of Activity class **/
-import java.util.ArrayList;
+import android.widget.ListView;
+import android.widget.Toast;
 
-import android.app.ListActivity;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
+public class Additem extends Activity {
 
-/** Note that here we are inheriting ListActivity class instead of Activity class **/
-public class Additem extends ListActivity {
+    private Button bt,bt1;
+  public static ListView lv;
+    public static ArrayList<String> strArr;
+    private ArrayAdapter<String> adapter;
+    private EditText et;public static int global_position =0;
+    public static String str;public static int i=0,j=1;
 
-    /** Items entered by the user is stored in this ArrayList variable */
-    ArrayList<String> list = new ArrayList<String>();
-
-    /** Declaring an ArrayAdapter to set items to ListView */
-    ArrayAdapter<String> adapter;
-String s1;
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /** Setting a custom layout for the list activity */
         setContentView(R.layout.main);
+        bt = (Button) findViewById(R.id.button1);
+        bt1= (Button) findViewById(R.id.button2);
+        lv = (ListView) findViewById(R.id.listView1);
+        et = (EditText) findViewById(R.id.editText1);
 
-        /** Reference to the button of the layout main.xml */
-        Button btn = (Button) findViewById(R.id.btnAdd);
+        strArr = new ArrayList<String>();
+        for (int i = 0; i < 2; i++) {
+            strArr.add("Row:" + i);
+        }
+        adapter = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_list_item_1, strArr);
+        lv.setAdapter(adapter);
+        bt.setOnClickListener(new OnClickListener() {
 
-        /** Defining the ArrayAdapter to set items to ListView */
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list);
-       /* btn.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
-                EditText edit = (EditText) findViewById(R.id.txtItem);
-                s1=edit.getText().toString();
-                list.add(s1);
-                //edit.setText("");
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                strArr.add(et.getText().toString());
 
-               // MyListActivity.items.add(s1);
-                //  adapter.notifyDataSetChanged();
-                //Intent intent = new Intent(Additem.this, MyListActivity.class);
-               // intent.putExtra("message",edit.getText().toString());
-               // startActivity(intent);
+                adapter.notifyDataSetChanged();
+
             }
-        });*/
-
-        /** Defining a click event listener for the button "Add" */
-        OnClickListener listener = new OnClickListener() {
+        });
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                EditText edit = (EditText) findViewById(R.id.txtItem);
+            public void onItemClick(AdapterView <?> adapter, View view, int position, long id){
+                global_position=position;
+                String s= String.valueOf(position);
+                String s1= String.valueOf(id);
+                str=lv.getItemAtPosition(Integer.parseInt(s)).toString();
+                Toast.makeText(getApplicationContext(),str,Toast.LENGTH_LONG).show();
 
-                list.add(edit.getText().toString());
-                edit.setText("");
+           /*   Intent intent = new Intent(Additem.this, MyListActivity.class);
+              intent.putExtra("Name",str);
+               startActivity(intent);*/
 
-
-               adapter.notifyDataSetChanged();
-               /* Intent intent = new Intent(Additem.this, MyListActivity.class);
-                intent.putExtra("message",edit.getText().toString());
-                startActivity(intent);*/
             }
-        };
+        });
 
-        /** Setting the event listener for the add button */
-       btn.setOnClickListener(listener);
+bt1.setOnClickListener(new OnClickListener() {
+    @Override
+    public void onClick(View v) {
+       Intent in=new Intent(Additem.this,ContextualUndoActivity.class);
+       getIntent().putExtra("Name",str);
+       startActivity(in);
+//MyListActivity m=new MyListActivity();
+      //  m.get(str);
+      //  ContextualUndoActivity d=new ContextualUndoActivity();
+      //  d.get(str);
+
+    }
+});
 
 
-        /** Setting the adapter to the ListView */
-       setListAdapter(adapter);
-       // MyListActivity m=new MyListActivity(s1);
-
+    }
+    public void onBackPressed() {
+        Intent in=new Intent(Additem.this,ContextualUndoActivity.class);
+        startActivity(in);
     }
 }

@@ -15,8 +15,6 @@
  */
 package com.feed.arivusitrus.kitchendelete;
 
-import java.util.ArrayList;
-
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
@@ -24,26 +22,60 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MyListActivity extends ListActivity {
-
-	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getListView().setDivider(null);
+
+     // name= getIntent().getExtras().getString("Name");
+
 	}
 
 	protected ArrayAdapter<String> createListAdapter() {
 		return new MyListAdapter(this, getItems());
 	}
 
-	public static ArrayList<String> getItems() {
+	public ArrayList<String> getItems() {
 		ArrayList<String> items = new ArrayList<String>();
+      //  ArrayList<String> myList = items.get(0);
+        //String s = myList.get(0);
+      //name=Additem.str;
+      /* String[] str1 = new String[5];
+        str1[0]=Additem.str;
+        str1[1]=Additem.lv.getItemAtPosition( Additem.global_position).toString();
+        str1[2]="Lesson3";
+        str1[3]="Lesson4";
+        str1[4]="Lesson5";
+        for(int i=0;i<5;i++)
+        {
+            items.add(str1[i]);
+        }*/
+        int k=Additem.i;
 
-			items.add("Heelo");
-items.add("hey");
-        items.add("Bye");
+       // for(k=Additem.i;k<Additem.j;) items.add(String.valueOf(k));
+        items.add("Apple");
+        Iterator<String> iterator;
+        iterator =  Additem.strArr.iterator();
+        while(iterator.hasNext()){
+            String version = iterator.next();
+            System.out.println(version);
+            items.add(Additem.str);
+            /* android.remove(version); */ //removing object from List - ConcurrentModificationException
 
+            //iterator.remove();  // you should be using Iterator's remove method
+        }
+
+       /* name=Additem.str;
+        //   name= getIntent().getExtras().getString("Name");
+		items.add("Apple");
+        items.add("Orange");
+        items.add("Mango");
+      items.add(name);*/
 		return items;
 	}
 
@@ -71,4 +103,5 @@ items.add("hey");
 			return tv;
 		}
 	}
+
 }
